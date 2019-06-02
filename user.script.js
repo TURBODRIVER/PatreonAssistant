@@ -5,6 +5,8 @@
 // @namespace   pa
 // @include     *patreon.com/posts*
 // @version     0.1
+// @downloadURL https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
+// @updateURL   https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
 // @run-at      document-end
 // ==/UserScript==
 
