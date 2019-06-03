@@ -4,10 +4,10 @@
 // @author      TURBODRIVER
 // @namespace   pa
 // @include     *patreon.com/posts*
-// @version     0.1
+// @version     0.2
 // @downloadURL https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
 // @updateURL   https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
-// @run-at      document-end
+// @run-at      document_start
 // ==/UserScript==
 
 var allCommentsLoadFailsCount = 0;
@@ -56,7 +56,8 @@ function loadAllCommentsReplies() {
     findAndClickButton("Load", "replies");
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function addFunctionButtons() {
+    var contentDiv = null;
     var buttons = document.getElementsByTagName('button');
 
     for (var i = 0; i < buttons.length; i++) {
@@ -64,22 +65,31 @@ document.addEventListener('DOMContentLoaded', function() {
         var buttonName = button.firstChild.nodeValue;
 
         if (buttonName == "Load more comments") {
-            var loadAllCommentsButton = document.createElement("button");
-            loadAllCommentsButton.setAttribute("id", "loadAllCommentsButton");
-            loadAllCommentsButton.setAttribute("type", "button");
-            loadAllCommentsButton.onclick = loadAllComments;
-            loadAllCommentsButton.innerHTML = "Load all comments";
-
-            var loadAllCommentsRepliesButton = document.createElement("button");
-            loadAllCommentsRepliesButton.setAttribute("id", "loadAllCommentsRepliesButton");
-            loadAllCommentsRepliesButton.setAttribute("type", "button");
-            loadAllCommentsRepliesButton.onclick = loadAllCommentsReplies;
-            loadAllCommentsRepliesButton.innerHTML = "Load all replies";
-
-            button.parentElement.parentElement.appendChild(document.createElement("br"));
-            button.parentElement.parentElement.appendChild(loadAllCommentsRepliesButton);
-            button.parentElement.parentElement.appendChild(document.createTextNode(" "));
-            button.parentElement.parentElement.appendChild(loadAllCommentsButton);
+            contentDiv = button.parentElement;
+            break;
         }
     }
+
+    if (contentDiv !== null) {
+        var loadAllCommentsButton = document.createElement("button");
+        loadAllCommentsButton.setAttribute("id", "loadAllCommentsButton");
+        loadAllCommentsButton.setAttribute("type", "button");
+        loadAllCommentsButton.onclick = loadAllComments;
+        loadAllCommentsButton.innerHTML = "Load all comments";
+
+        var loadAllCommentsRepliesButton = document.createElement("button");
+        loadAllCommentsRepliesButton.setAttribute("id", "loadAllCommentsRepliesButton");
+        loadAllCommentsRepliesButton.setAttribute("type", "button");
+        loadAllCommentsRepliesButton.onclick = loadAllCommentsReplies;
+        loadAllCommentsRepliesButton.innerHTML = "Load all replies";
+
+        contentDiv.parentElement.appendChild(document.createElement("br"));
+        contentDiv.parentElement.appendChild(loadAllCommentsRepliesButton);
+        contentDiv.parentElement.appendChild(document.createTextNode(" "));
+        contentDiv.parentElement.appendChild(loadAllCommentsButton);
+    }
+}
+
+window.addEventListener('load', function() {
+    addFunctionButtons();
 }, false);
