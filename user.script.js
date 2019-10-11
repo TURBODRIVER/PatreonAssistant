@@ -4,10 +4,8 @@
 // @author      TURBODRIVER
 // @namespace   pa
 // @include     *patreon.com/posts*
-// @version     0.2
-// @downloadURL https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
-// @updateURL   https://raw.githubusercontent.com/TURBODRIVER/PatreonAssistant/master/user.script.js
-// @run-at      document_start
+// @version     0.3
+// @run-at      document-end
 // ==/UserScript==
 
 var allCommentsLoadFailsCount = 0;
@@ -91,5 +89,5 @@ function addFunctionButtons() {
 }
 
 window.addEventListener('load', function() {
-    addFunctionButtons();
+    setTimeout(function() { addFunctionButtons(); }, 1500);
 }, false);
